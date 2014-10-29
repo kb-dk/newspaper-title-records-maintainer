@@ -65,6 +65,7 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
             Item next = editions.next();
             doWorkOnEdition(next, domsID);
         }
+       //TODO remember that we should also remove relations from editions that are no longer matched
     }
 
     private void doWorkOnEdition(Item edition, String newspaperDomsID) throws
