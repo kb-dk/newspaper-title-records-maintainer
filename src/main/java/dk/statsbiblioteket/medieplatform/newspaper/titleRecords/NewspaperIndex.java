@@ -7,7 +7,7 @@ import java.util.Iterator;
 public class NewspaperIndex {
 
     /**
-     *
+     * Get all newspaper editions matching the given
      *
      * @param avisID
      * @param startDate

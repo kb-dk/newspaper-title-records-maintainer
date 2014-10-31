@@ -12,6 +12,7 @@ import dk.statsbiblioteket.util.xml.DOM;
 import dk.statsbiblioteket.util.xml.XPathSelector;
 import org.w3c.dom.Document;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -59,8 +60,15 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
 
         NewspaperIndex newspaperIndex = new NewspaperIndex();
 
-        // Add relations from all matching editions to received newspaper object ("titelpost")
+        // Get all editions that match given newspaper object ("titelpost") and date range, i.e. editions that SHOULD have the
+        // relation
         Iterator<Item> editions =  newspaperIndex.getEditions(avisID, startDate, endDate);
+
+        // Get all editions that already HAVE the relation TODO
+
+
+
+        // Add relations from all matching editions to received newspaper object ("titelpost")
         while (editions.hasNext()) {
             Item next = editions.next();
             addRelationFromEditionToNewspaper(next, domsID);
@@ -72,6 +80,28 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
             Item next = editions.next();
             removeRelationFromEditionToNewspaper(next, domsID);
         }
+    }
+
+    /**
+     * Get all editions that have the wanted relation to newspaper object ("titelpost") with given DOMS PID
+     *
+     * @param newspaperDomsID Newspaper object ("titelpost") to which relation should go
+     * @return All editions that have the wanted relation to newspaper object ("titelpost") with given DOMS PID
+     */
+    private Iterator<Item> getEditionsWithRelation(String newspaperDomsID) throws
+            BackendMethodFailedException, BackendInvalidResourceException, BackendInvalidCredsException {
+
+        List<Item> editions = new ArrayList<>();
+
+        // Get all relations that go from an edition to given newspaper object ("titelpost")
+        List<FedoraRelation> relations = eFedora.getInverseRelations(newspaperDomsID, editionToNewspaperRelation);
+
+        // Collect the editions that these relations point from
+        for (FedoraRelation relation : relations) {
+            // TODO collect all of relation.getObject()
+        }
+
+        return null; // TODO
     }
 
     /**
