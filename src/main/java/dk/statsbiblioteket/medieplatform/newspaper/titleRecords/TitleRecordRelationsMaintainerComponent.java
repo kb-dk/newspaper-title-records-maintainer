@@ -37,16 +37,16 @@ public class TitleRecordRelationsMaintainerComponent {
         log.info("Starting with args {}", args);
         Properties properties = readProperties(args);
         Credentials creds = new Credentials(properties.getProperty(ConfigConstants.DOMS_USERNAME),
-                                                   properties.getProperty(ConfigConstants.DOMS_PASSWORD));
+                properties.getProperty(ConfigConstants.DOMS_PASSWORD));
         String fedoraLocation = properties.getProperty(ConfigConstants.DOMS_URL);
         EnhancedFedoraImpl eFedora = new EnhancedFedoraImpl(creds,
-                                                                   fedoraLocation,
-                                                                   properties.getProperty(ConfigConstants.DOMS_PIDGENERATOR_URL),
-                                                                   null);
+                fedoraLocation,
+                properties.getProperty(ConfigConstants.DOMS_PIDGENERATOR_URL),
+                null);
 
         RunnableComponent<Item> component = new RunnableTitleRecordRelationsMaintainer(properties, eFedora);
         CallResult<Item> result = SBOIDomsAutonomousComponentUtils.startAutonomousComponent(properties, component,new
-                                                                                                   DomsItemFactory());
+                DomsItemFactory());
         log.info("result was: " + result);
         return result.containsFailures();
     }
