@@ -70,6 +70,7 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
 
         // Add relations from editions that are wanted but aren't in editionsWithRelation TODO
         getEditionsWantedButWithoutRelation(wantedEditions, editionsWithRelation);
+        
 
         // Remove relations that are in editionsWithRelation but aren't in wantedEditions TODO
         getEditionsWithRelationButUnwanted(wantedEditions, editionsWithRelation);
@@ -92,22 +93,22 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
     /**
      * Get relations that are in editionsWithRelation but aren't in wantedEditions
      *
-     * @param wantedEditions
-     * @param editionsWithRelation
+     * @param wantedEditions Relations that we want
+     * @param editionsWithRelation Relations from editions to "titelpost" that we already have
      * @return
      */
     private List<Item> getEditionsWithRelationButUnwanted(List<Item> wantedEditions, List<Item> editionsWithRelation) {
-        return null;
+        return null;  // TODO
     }
 
     /**
      * Get relations from editions that are wanted but aren't in editionsWithRelation
      *
-     * @param wantedEditions
-     * @param editionsWithRelation
+     * @param wantedEditions Relations that we want
+     * @param editionsWithRelation Relations from editions to "titelpost" that we already have
      */
     private List<Item> getEditionsWantedButWithoutRelation(List<Item> wantedEditions, List<Item> editionsWithRelation) {
-        return null;
+        return null;  // TODO
     }
 
     /**
