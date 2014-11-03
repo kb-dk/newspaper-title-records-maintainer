@@ -20,11 +20,14 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
     private final EnhancedFedora eFedora;
     private String editionToNewspaperRelation = "isPartOfNewspaper";
     private ItemFactory<Item> itemFactory;
+    private NewspaperIndex newspaperIndex;
 
-    public RunnableTitleRecordRelationsMaintainer(Properties properties, EnhancedFedora eFedora, ItemFactory<Item> itemFactory) {
+    public RunnableTitleRecordRelationsMaintainer(Properties properties, EnhancedFedora eFedora, ItemFactory<Item> itemFactory,
+                                                  NewspaperIndex newspaperIndex) {
         this.properties = properties;
         this.eFedora = eFedora;
         this.itemFactory = itemFactory;
+        this.newspaperIndex = newspaperIndex;
     }
 
     @Override
@@ -56,8 +59,6 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
         String avisID = xpath.selectString(newspaperDOM, "/v3:mods/v3:identifier[@type='ninestars avis id']/text()");
         String startDate = xpath.selectString(newspaperDOM, "/v3:mods/v3:originInfo/v3:dateIssued[@point='start']/text()");
         String endDate = xpath.selectString(newspaperDOM, "/v3:mods/v3:originInfo/v3:dateIssued[@point='end']/text()");
-
-        NewspaperIndex newspaperIndex = new NewspaperIndex();
 
         // Get all editions that match given newspaper object ("titelpost") and date range, i.e. editions that SHOULD have the
         // relation

@@ -44,8 +44,10 @@ public class TitleRecordRelationsMaintainerComponent {
                 properties.getProperty(ConfigConstants.DOMS_PIDGENERATOR_URL),
                 null);
         DomsItemFactory itemFactory = new DomsItemFactory();
+        NewspaperIndex newspaperIndex = new NewspaperIndex();
 
-        RunnableComponent<Item> component = new RunnableTitleRecordRelationsMaintainer(properties, eFedora, itemFactory);
+        RunnableComponent<Item> component = new RunnableTitleRecordRelationsMaintainer(properties, eFedora, itemFactory,
+                newspaperIndex);
         CallResult<Item> result = SBOIDomsAutonomousComponentUtils.startAutonomousComponent(properties, component,new
                 DomsItemFactory());
         log.info("result was: " + result);
