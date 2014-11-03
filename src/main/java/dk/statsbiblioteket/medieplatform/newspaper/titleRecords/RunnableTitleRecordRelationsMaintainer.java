@@ -68,47 +68,51 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
 
         // Now we want wantedEditions to = editionsWithRelation
 
-        // Add relations from editions that are wanted but aren't in editionsWithRelation TODO
-        getEditionsWantedButWithoutRelation(wantedEditions, editionsWithRelation);
-        
-
-        // Remove relations that are in editionsWithRelation but aren't in wantedEditions TODO
-        getEditionsWithRelationButUnwanted(wantedEditions, editionsWithRelation);
-
-
-        // Add relations from all matching editions to received newspaper object ("titelpost")
-        /*while (editions.hasNext()) {
-            Item next = editions.next();
-            addRelationFromEditionToNewspaper(next, domsID);
+        // Add relations from editions that are wanted but aren't in editionsWithRelation
+        List<Item> editionsToAdd = getEditionsWantedButWithoutRelation(wantedEditions, editionsWithRelation);
+        for (Item toAdd : editionsToAdd) {
+            addRelationFromEditionToNewspaper(toAdd, domsID);
         }
 
-        // Remove relations from editions that are no longer matched
-        Iterator<Item> nonmatchingEditions =  getNonmatchingEditions(avisID, startDate, endDate);
-        while (nonmatchingEditions.hasNext()) {
-            Item next = editions.next();
-            removeRelationFromEditionToNewspaper(next, domsID);
-        }*/
+        // Remove relations that are in editionsWithRelation but aren't in wantedEditions
+        List<Item> editionsToRemove = getEditionsWithRelationButUnwanted(wantedEditions, editionsWithRelation);
+        for (Item toRemove : editionsToRemove) {
+            removeRelationFromEditionToNewspaper(toRemove, domsID);
+        }
     }
 
     /**
-     * Get relations that are in editionsWithRelation but aren't in wantedEditions
+     * Get editions from which relations are wanted but that aren't in editionsWithRelation
      *
-     * @param wantedEditions Relations that we want
-     * @param editionsWithRelation Relations from editions to "titelpost" that we already have
-     * @return
-     */
-    private List<Item> getEditionsWithRelationButUnwanted(List<Item> wantedEditions, List<Item> editionsWithRelation) {
-        return null;  // TODO
-    }
-
-    /**
-     * Get relations from editions that are wanted but aren't in editionsWithRelation
-     *
-     * @param wantedEditions Relations that we want
-     * @param editionsWithRelation Relations from editions to "titelpost" that we already have
+     * @param wantedEditions Editions that we want
+     * @param editionsWithRelation Editions with a relation to "titelpost" that we already have
+     * @return editions from which relations are wanted but that aren't in editionsWithRelation
      */
     private List<Item> getEditionsWantedButWithoutRelation(List<Item> wantedEditions, List<Item> editionsWithRelation) {
-        return null;  // TODO
+        List<Item> result = new ArrayList<>();
+        for (Item wantedEdition : wantedEditions) {
+            if (!editionsWithRelation.contains(wantedEdition)) {
+                result.add(wantedEdition);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Get editions that are in editionsWithRelation but aren't in wantedEditions
+     *
+     * @param wantedEditions Editions that we want
+     * @param editionsWithRelation Editions with a relation to "titelpost" that we already have
+     * @return editions that are in editionsWithRelation but aren't in wantedEditions
+     */
+    private List<Item> getEditionsWithRelationButUnwanted(List<Item> wantedEditions, List<Item> editionsWithRelation) {
+        List<Item> result = new ArrayList<>();
+        for (Item editionWithRelation : editionsWithRelation) {
+            if (!wantedEditions.contains(editionWithRelation)) {
+                result.add(editionWithRelation);
+            }
+        }
+        return result;
     }
 
     /**
@@ -131,19 +135,6 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
         }
 
         return editions;
-    }
-
-    /**
-     * Get all editions that do not match given strings
-     *
-     * @param avisID
-     * @param startDate
-     * @param endDate
-     * @return
-     */
-    private Iterator<Item> getNonmatchingEditions(String avisID, String startDate, String endDate) {
-        // TODO
-        return null;
     }
 
     /**
