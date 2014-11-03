@@ -43,8 +43,9 @@ public class TitleRecordRelationsMaintainerComponent {
                 fedoraLocation,
                 properties.getProperty(ConfigConstants.DOMS_PIDGENERATOR_URL),
                 null);
+        DomsItemFactory itemFactory = new DomsItemFactory();
 
-        RunnableComponent<Item> component = new RunnableTitleRecordRelationsMaintainer(properties, eFedora);
+        RunnableComponent<Item> component = new RunnableTitleRecordRelationsMaintainer(properties, eFedora, itemFactory);
         CallResult<Item> result = SBOIDomsAutonomousComponentUtils.startAutonomousComponent(properties, component,new
                 DomsItemFactory());
         log.info("result was: " + result);
