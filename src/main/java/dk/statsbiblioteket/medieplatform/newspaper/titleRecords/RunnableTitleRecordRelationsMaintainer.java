@@ -16,9 +16,10 @@ import java.util.List;
 import java.util.Properties;
 
 public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent<Item> {
+    private static final String URI_PREFIX = "info:fedora/";
     private final Properties properties;
     private final EnhancedFedora eFedora;
-    private String editionToNewspaperRelation = "isPartOfNewspaper";
+    private String editionToNewspaperRelation = "http://doms.statsbiblioteket.dk/relations/default/0/1/#isPartOfNewspaper";
     private ItemFactory<Item> itemFactory;
     private NewspaperIndex newspaperIndex;
 
@@ -130,9 +131,9 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
         // Get all relations that go from an edition to given newspaper object ("titelpost")
         List<FedoraRelation> relations = eFedora.getInverseRelations(newspaperDomsID, editionToNewspaperRelation);
 
-        // Collect the editions that these relations point from. (Relations point from Object to Subject)
+        // Collect the editions that these relations point from. (Relations point from Edition to Newspaper)
         for (FedoraRelation relation : relations) {
-            editions.add(itemFactory.create(uriToDomsID(relation.getObject())));
+            editions.add(itemFactory.create(uriToDomsID(relation.getSubject())));
         }
 
         return editions;
@@ -160,13 +161,14 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
 
         // Add relation from edition to newspaper object ("titelpost")
         try {
-            eFedora.addRelation(edition.getDomsID(), edition.getDomsID(), editionToNewspaperRelation, newspaperDomsID, false,
-                    "linking to");
+            eFedora.addRelation(edition.getDomsID(), URI_PREFIX + edition.getDomsID(), editionToNewspaperRelation,
+                                URI_PREFIX + newspaperDomsID, false, "linking to");
         } catch (BackendInvalidCredsException objectIsPublished) {
             // Edition was already published, so unpublish (set to "I" (inactive)) before adding
             eFedora.modifyObjectState(edition.getDomsID(), "I", "comment");
             try {
-                eFedora.addRelation(edition.getDomsID(), edition.getDomsID(), editionToNewspaperRelation, newspaperDomsID, false,
+                eFedora.addRelation(edition.getDomsID(), URI_PREFIX + edition.getDomsID(), editionToNewspaperRelation, URI_PREFIX
+                        + newspaperDomsID, false,
                         "linking to");
             } finally {
                 // Re-publish (set to "A" (active))
@@ -190,9 +192,9 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
         // If edition has relation to newspaperDomsID, remove it
         List<FedoraRelation> relations = eFedora.getNamedRelations(edition.getDomsID(), editionToNewspaperRelation, null);
         for (FedoraRelation relation : relations) {
-            if (relation.getSubject().equals(newspaperDomsID)){
-                eFedora.deleteRelation(edition.getDomsID(), edition.getDomsID(), editionToNewspaperRelation, newspaperDomsID,
-                        false, "linking to");
+            if (relation.getObject().equals(URI_PREFIX + newspaperDomsID)) {
+                eFedora.deleteRelation(edition.getDomsID(), URI_PREFIX + edition.getDomsID(),
+                                       editionToNewspaperRelation, URI_PREFIX + newspaperDomsID, false, "linking to");
             }
         }
     }
@@ -204,6 +206,6 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
      * @return The DOMS PID
      */
     private String uriToDomsID(String uri) {
-        return uri.replace("info:fedora/", "");
+        return uri.replace(URI_PREFIX, "");
     }
 }
