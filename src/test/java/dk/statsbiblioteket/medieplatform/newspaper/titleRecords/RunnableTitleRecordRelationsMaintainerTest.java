@@ -1,6 +1,6 @@
 package dk.statsbiblioteket.medieplatform.newspaper.titleRecords;
 
-import junit.framework.TestCase;
+import org.testng.annotations.Test;
 
 import dk.statsbiblioteket.doms.central.connectors.EnhancedFedora;
 import dk.statsbiblioteket.doms.central.connectors.fedora.structures.FedoraRelation;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-public class RunnableTitleRecordRelationsMaintainerTest extends TestCase {
+public class RunnableTitleRecordRelationsMaintainerTest {
 
     private static final String URL_PREFIX = "info:fedora/";
     private static final String PREDICATE = "http://doms.statsbiblioteket.dk/relations/default/0/1/#isPartOfNewspaper";
@@ -36,6 +36,7 @@ public class RunnableTitleRecordRelationsMaintainerTest extends TestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testDoWorkOnItemAddOneRelation() throws Exception {
         //Mock item, return id when asked
         Item itemMock = mock(Item.class);
@@ -87,6 +88,7 @@ public class RunnableTitleRecordRelationsMaintainerTest extends TestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testDoWorkOnItemRemoveOneRelation() throws Exception {
         //Mock item, return id when asked
         Item itemMock = mock(Item.class);
@@ -140,6 +142,7 @@ public class RunnableTitleRecordRelationsMaintainerTest extends TestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testDoWorkOnItemNoRelationsChanged() throws Exception {
         //Mock item, return id when asked
         Item itemMock = mock(Item.class);
@@ -188,6 +191,7 @@ public class RunnableTitleRecordRelationsMaintainerTest extends TestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testDoWorkOnItemAddMultipleRelations() throws Exception {
         //Mock item, return id when asked
         Item itemMock = mock(Item.class);
@@ -240,6 +244,7 @@ public class RunnableTitleRecordRelationsMaintainerTest extends TestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testDoWorkOnItemRemoveMultipleRelations() throws Exception {
         //Mock item, return id when asked
         Item itemMock = mock(Item.class);
@@ -294,6 +299,7 @@ public class RunnableTitleRecordRelationsMaintainerTest extends TestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testDoWorkOnItemAddAndRemoveMultipleRelations() throws Exception {
         //Mock item, return id when asked
         Item itemMock = mock(Item.class);
