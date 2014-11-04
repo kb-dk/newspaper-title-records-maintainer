@@ -2,12 +2,8 @@ package dk.statsbiblioteket.medieplatform.newspaper.titleRecords;
 
 import dk.statsbiblioteket.doms.central.connectors.EnhancedFedoraImpl;
 import dk.statsbiblioteket.doms.webservices.authentication.Credentials;
-import dk.statsbiblioteket.medieplatform.autonomous.CallResult;
-import dk.statsbiblioteket.medieplatform.autonomous.ConfigConstants;
-import dk.statsbiblioteket.medieplatform.autonomous.DomsItemFactory;
-import dk.statsbiblioteket.medieplatform.autonomous.Item;
-import dk.statsbiblioteket.medieplatform.autonomous.RunnableComponent;
-import dk.statsbiblioteket.medieplatform.autonomous.SBOIDomsAutonomousComponentUtils;
+import dk.statsbiblioteket.medieplatform.autonomous.*;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +40,10 @@ public class TitleRecordRelationsMaintainerComponent {
                 properties.getProperty(ConfigConstants.DOMS_PIDGENERATOR_URL),
                 null);
         DomsItemFactory itemFactory = new DomsItemFactory();
-        NewspaperIndex newspaperIndex = new NewspaperIndex();
+
+        String summaLocation = properties.getProperty(ConfigConstants.AUTONOMOUS_SBOI_URL);
+        HttpSolrServer summaSearchServer = new SolrJConnector(summaLocation).getSolrServer();
+        NewspaperIndex newspaperIndex = new NewspaperIndex(summaSearchServer);
 
         RunnableComponent<Item> component = new RunnableTitleRecordRelationsMaintainer(properties, eFedora, itemFactory,
                 newspaperIndex);
@@ -74,7 +73,8 @@ public class TitleRecordRelationsMaintainerComponent {
             propsFileString = System.getProperty("newspaper.component.properties.file");
         }
         if (propsFileString == null) {
-            throw new RuntimeException("Properties file must be defined either as command-line parameter or as system" + "property newspaper.component.properties .");
+            throw new RuntimeException("Properties file must be defined either as command-line parameter or as system"
+                    + "property newspaper.component.properties .");
         }
         log.info("Reading properties from " + propsFileString);
         File propsFile = new File(propsFileString);

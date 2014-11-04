@@ -8,6 +8,7 @@ import dk.statsbiblioteket.doms.central.connectors.fedora.structures.FedoraRelat
 import dk.statsbiblioteket.medieplatform.autonomous.*;
 import dk.statsbiblioteket.util.xml.DOM;
 import dk.statsbiblioteket.util.xml.XPathSelector;
+import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.w3c.dom.Document;
 
 import java.util.ArrayList;
