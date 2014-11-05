@@ -64,7 +64,7 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
 
         // Get all editions that match given newspaper object ("titelpost") and date range, i.e. editions that SHOULD have the
         // relation
-        List<Item> wantedEditions =  newspaperIndex.getEditions(avisID, startDate, endDate);
+        List<Item> wantedEditions =  newspaperIndex.getEditions(avisID, startDate, endDate, itemFactory);
 
         // Get all editions that already HAVE the relation
         List<Item> editionsWithRelation = getEditionsWithRelation(domsID);
