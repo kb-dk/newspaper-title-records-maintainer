@@ -8,11 +8,10 @@ import dk.statsbiblioteket.doms.central.connectors.fedora.structures.FedoraRelat
 import dk.statsbiblioteket.medieplatform.autonomous.*;
 import dk.statsbiblioteket.util.xml.DOM;
 import dk.statsbiblioteket.util.xml.XPathSelector;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
+
 import org.w3c.dom.Document;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -64,7 +63,7 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
 
         // Get all editions that match given newspaper object ("titelpost") and date range, i.e. editions that SHOULD have the
         // relation
-        List<Item> wantedEditions =  newspaperIndex.getEditions(avisID, startDate, endDate, itemFactory);
+        List<Item> wantedEditions =  newspaperIndex.getEditions(avisID, startDate, endDate);
 
         // Get all editions that already HAVE the relation
         List<Item> editionsWithRelation = getEditionsWithRelation(domsID);

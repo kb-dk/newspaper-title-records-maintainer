@@ -13,15 +13,18 @@ import java.util.List;
 public class NewspaperIndex {
     private static final String FIELD_NAME_EDITION_AVIS_ID = "newspapr_edition_avisID";
     private static final String FIELD_NAME_EDITION_DATE_ISSUED = "newspapr_edition_dateIssued";
-    HttpSolrServer summaSearch;
+    private final HttpSolrServer summaSearch;
+    private final ItemFactory<Item> itemFactory;
 
     /**
      * Constructor
      *
      * @param summaSearch Solr server to use for searching
+     * @param itemFactory Factory to create new items
      */
-    public NewspaperIndex(HttpSolrServer summaSearch) {
+    public NewspaperIndex(HttpSolrServer summaSearch, ItemFactory<Item> itemFactory) {
         this.summaSearch = summaSearch;
+        this.itemFactory = itemFactory;
     }
 
     /**
@@ -32,7 +35,7 @@ public class NewspaperIndex {
      * @param endDate The end of the date range to be matched
      * @return A list of the editions that match given newspaper object ("titelpost") and date range
      */
-    public List<Item> getEditions(String avisID, String startDate, String endDate, ItemFactory<Item> itemFactory) {
+    public List<Item> getEditions(String avisID, String startDate, String endDate) {
         List<Item> editions;
         final int rows = Integer.MAX_VALUE;
         int start = 0;
@@ -53,7 +56,7 @@ public class NewspaperIndex {
             for (SolrDocument result : results) {
                 String uuid = result.getFirstValue(SBOIEventIndex.UUID).toString();
 
-                editions.add(itemFactory.create(uuid));
+                editions.add(this.itemFactory.create(uuid));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -71,7 +74,7 @@ public class NewspaperIndex {
      * @return The query string
      */
     private String constructQueryString(String avisID, String startDate, String endDate) {
-        return "q=" + FIELD_NAME_EDITION_AVIS_ID + ":" + avisID + " AND " + FIELD_NAME_EDITION_DATE_ISSUED + ":" + "["
+        return FIELD_NAME_EDITION_AVIS_ID + ":" + avisID + " AND " + FIELD_NAME_EDITION_DATE_ISSUED + ":" + "["
                 + startDate + " TO " + endDate + "]";
     }
 }
