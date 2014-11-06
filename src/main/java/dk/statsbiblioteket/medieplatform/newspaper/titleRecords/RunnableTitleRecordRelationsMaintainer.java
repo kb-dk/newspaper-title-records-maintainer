@@ -58,7 +58,7 @@ public class RunnableTitleRecordRelationsMaintainer implements RunnableComponent
         String newspaperMods = eFedora.getXMLDatastreamContents(domsID, "MODS");
         Document newspaperDOM = DOM.stringToDOM(newspaperMods, true);
         XPathSelector xpath = DOM.createXPathSelector("v3", "http://www.loc.gov/mods/v3");
-        String avisID = xpath.selectString(newspaperDOM, "/v3:mods/v3:identifier[@type='ninestars avis id']/text()");
+        String avisID = xpath.selectString(newspaperDOM, "/v3:mods/v3:identifier[@type='title_family']/text()");
         String startDate = xpath.selectString(newspaperDOM, "/v3:mods/v3:originInfo/v3:dateIssued[@point='start']/text()");
         String endDate = xpath.selectString(newspaperDOM, "/v3:mods/v3:originInfo/v3:dateIssued[@point='end']/text()");
 
