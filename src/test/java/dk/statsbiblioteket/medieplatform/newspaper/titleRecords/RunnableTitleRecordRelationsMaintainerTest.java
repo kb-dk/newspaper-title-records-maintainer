@@ -31,7 +31,7 @@ public class RunnableTitleRecordRelationsMaintainerTest {
     private static final String START_DATE = "1970-01-01T01:00:00.000+01:00";
     private static final String END_DATE = "1980-01-01T01:00:00.000+01:00";
     private static final String MODS_XML = String.format("<mods xmlns=\"http://www.loc.gov/mods/v3\">\n"
-                                                                 + "    <identifier type=\"ninestars avis id\">%s</identifier>\n"
+                                                                 + "    <identifier type=\"title_family\">%s</identifier>\n"
                                                                  + "    <originInfo>\n"
                                                                  + "        <dateIssued point=\"start\">%s</dateIssued>\n"
                                                                  + "        <dateIssued point=\"end\">%s</dateIssued>\n"
