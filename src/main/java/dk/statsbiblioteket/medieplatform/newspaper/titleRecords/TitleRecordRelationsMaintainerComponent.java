@@ -43,7 +43,7 @@ public class TitleRecordRelationsMaintainerComponent {
 
         String summaLocation = properties.getProperty(ConfigConstants.AUTONOMOUS_SBOI_URL);
         HttpSolrServer summaSearchServer = new SolrJConnector(summaLocation).getSolrServer();
-        NewspaperIndex newspaperIndex = new NewspaperIndex(summaSearchServer, new DomsItemFactory());
+        NewspaperIndex newspaperIndex = new NewspaperIndex(summaSearchServer, itemFactory);
 
         RunnableComponent<Item> component = new RunnableTitleRecordRelationsMaintainer(properties, eFedora, itemFactory,
                 newspaperIndex);
