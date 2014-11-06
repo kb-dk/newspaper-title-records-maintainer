@@ -17,7 +17,7 @@
     <scm><!--TODO-->
         <url>https://github.com/statsbiblioteket/newspaper-manualQA-flagger</url>
         <connection>scm:git:https://github.com/statsbiblioteket/newspaper-manualQA-flagger.git</connection>
-        <developerConnection>scm:git:git@github.com:statsbiblioteket/newspaper-manualQA-flagger.git
+        <developerConnection>scm:git:git@github.com:statsbiblioteket/newspaper-title-records-maintainer.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>

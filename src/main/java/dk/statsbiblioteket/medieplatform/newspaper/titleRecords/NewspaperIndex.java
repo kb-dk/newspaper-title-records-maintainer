@@ -13,6 +13,8 @@ import java.util.List;
 public class NewspaperIndex {
     private static final String FIELD_NAME_EDITION_AVIS_ID = "newspapr_edition_avisID";
     private static final String FIELD_NAME_EDITION_DATE_ISSUED = "newspapr_edition_dateIssued";
+    private static final String FIELD_NAME_ITEM_MODEL = "item_model";
+    private static final String CONTENT_MODEL_NEWSPAPER = "doms:ContentModel_Newspaper";
     private final HttpSolrServer summaSearch;
     private final ItemFactory<Item> itemFactory;
 
@@ -43,7 +45,10 @@ public class NewspaperIndex {
         try {
             SolrQuery query = new SolrQuery();
             query.setQuery(constructQueryString(avisID, startDate, endDate));
-            query.setRows(rows);  // Fetch size. Do not go over 1000 unless you specify fields to fetch not including content_text
+
+            // Fetch size. Ok that it's above 1000, because we've specified fields to fetch and content_text is not one of them
+            query.setRows(rows);
+
             query.setStart(start);
             // IMPORTANT! Only use facets if needed.
             query.set("facet", "false");  // Very important. Must overwrite to false. Facets are very slow and expensive.
@@ -75,6 +80,6 @@ public class NewspaperIndex {
      */
     private String constructQueryString(String avisID, String startDate, String endDate) {
         return FIELD_NAME_EDITION_AVIS_ID + ":" + avisID + " AND " + FIELD_NAME_EDITION_DATE_ISSUED + ":" + "["
-                + startDate + " TO " + endDate + "]";
+                + startDate + " TO " + endDate + "]" + " AND " + FIELD_NAME_ITEM_MODEL + ":" + CONTENT_MODEL_NEWSPAPER;
     }
 }

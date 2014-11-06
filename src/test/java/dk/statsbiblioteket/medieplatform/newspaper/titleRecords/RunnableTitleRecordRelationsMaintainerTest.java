@@ -63,8 +63,8 @@ public class RunnableTitleRecordRelationsMaintainerTest {
 
         //One relation should be checked, then added
         verify(enhancedFedoraMock).getNamedRelations(DOMS_EDITION_ID3, PREDICATE, null);
-        verify(enhancedFedoraMock).addRelation(DOMS_EDITION_ID3, URI_PREFIX + DOMS_EDITION_ID3, PREDICATE, URI_PREFIX + DOMS_NEWSPAPER_TITLE_ID, false,
-                                               MESSAGE);
+        verify(enhancedFedoraMock).addRelation(DOMS_EDITION_ID3, URI_PREFIX + DOMS_EDITION_ID3, PREDICATE, URI_PREFIX
+                + DOMS_NEWSPAPER_TITLE_ID, false, MESSAGE);
 
         //Verify normal calls
         verifyNormalCalls(resultCollectorMock, enhancedFedoraMock, newspaperIndexMock);
@@ -222,8 +222,8 @@ public class RunnableTitleRecordRelationsMaintainerTest {
 
         //One relation should be checked, then added
         verify(enhancedFedoraMock).getNamedRelations(DOMS_EDITION_ID1, PREDICATE, null);
-        verify(enhancedFedoraMock).addRelation(DOMS_EDITION_ID1, URI_PREFIX + DOMS_EDITION_ID1, PREDICATE, URI_PREFIX + DOMS_NEWSPAPER_TITLE_ID, false,
-                                               MESSAGE);
+        verify(enhancedFedoraMock).addRelation(DOMS_EDITION_ID1, URI_PREFIX + DOMS_EDITION_ID1, PREDICATE, URI_PREFIX
+                + DOMS_NEWSPAPER_TITLE_ID, false, MESSAGE);
         //Two relations should be checked, then deleted
         verify(enhancedFedoraMock).getNamedRelations(DOMS_EDITION_ID2, PREDICATE, null);
         verify(enhancedFedoraMock).deleteRelation(DOMS_EDITION_ID2, URI_PREFIX + DOMS_EDITION_ID2, PREDICATE,
@@ -238,7 +238,7 @@ public class RunnableTitleRecordRelationsMaintainerTest {
 
     /**
      * Verify that the expected normal calls are made, and none other.
-     * @param resultCollectorMock Verify no calls are med to this.
+     * @param resultCollectorMock Verify no calls are made to this.
      * @param enhancedFedoraMock Verify reading of MODS and looking up of relations is done, and nothing else.
      * @param newspaperIndexMock Verify search is done, and nothing else.
      *

@@ -1,7 +1,6 @@
 <configuration>
 
-
-    <property name="LOGFILE" value="${user.home}/logs/manualQA-flagger.log"/>
+    <property name="LOGFILE" value="${user.home}/logs/title-record-maintainer.log"/>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <prudent>true</prudent>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -22,8 +21,5 @@
         <appender-ref ref="FILE"/>
     </root>
     <logger name="org.apache.zookeeper.ZooKeeper" level="WARN"/>
-
-
-
 
 </configuration>
