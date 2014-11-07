@@ -14,7 +14,7 @@ public class NewspaperIndex {
     private static final String FIELD_NAME_EDITION_AVIS_ID = "newspapr_edition_avisID";
     private static final String FIELD_NAME_EDITION_DATE_ISSUED = "newspapr_edition_dateIssued";
     private static final String FIELD_NAME_ITEM_MODEL = "item_model";
-    private static final String CONTENT_MODEL_NEWSPAPER = "doms:ContentModel_Newspaper";
+    private static final String CONTENT_MODEL_NEWSPAPER = "doms:ContentModel_Edition";
     private final HttpSolrServer summaSearch;
     private final ItemFactory<Item> itemFactory;
 
