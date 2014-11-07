@@ -84,7 +84,7 @@ public class RunnableTitleRecordRelationsMaintainer extends AbstractRunnableComp
      * @return editions from which relations are wanted but that aren't in editionsWithRelation
      */
     private List<Item> getEditionsWantedButWithoutRelation(List<Item> wantedEditions, List<Item> editionsWithRelation) {
-        List<Item> result = wantedEditions;
+        List<Item> result = new ArrayList<>(wantedEditions);
         result.removeAll(editionsWithRelation);
         return result;
     }
@@ -97,7 +97,7 @@ public class RunnableTitleRecordRelationsMaintainer extends AbstractRunnableComp
      * @return editions that are in editionsWithRelation but aren't in wantedEditions
      */
     private List<Item> getEditionsWithRelationButUnwanted(List<Item> wantedEditions, List<Item> editionsWithRelation) {
-        List<Item> result = editionsWithRelation;
+        List<Item> result = new ArrayList<>(editionsWithRelation);
         result.removeAll(wantedEditions);
         return result;
     }
