@@ -80,6 +80,7 @@ public class NewspaperIndex {
      */
     private String constructQueryString(String avisID, String startDate, String endDate) {
         return FIELD_NAME_EDITION_AVIS_ID + ":" + avisID + " AND " + FIELD_NAME_EDITION_DATE_ISSUED + ":" + "["
-                + startDate + " TO " + endDate + "]" + " AND " + FIELD_NAME_ITEM_MODEL + ":" + CONTENT_MODEL_NEWSPAPER;
+                + startDate + " TO " + endDate + "]" + " AND " + FIELD_NAME_ITEM_MODEL + ":" + "\"" + CONTENT_MODEL_NEWSPAPER
+                + "\"";
     }
 }
