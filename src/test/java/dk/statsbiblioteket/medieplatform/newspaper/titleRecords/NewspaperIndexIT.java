@@ -8,9 +8,7 @@ import dk.statsbiblioteket.medieplatform.autonomous.DomsItemFactory;
 import dk.statsbiblioteket.medieplatform.autonomous.Item;
 import dk.statsbiblioteket.medieplatform.autonomous.SolrJConnector;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 
@@ -20,14 +18,13 @@ public class NewspaperIndexIT {
 
     private String summaLocation;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() throws Exception {
+        String pathToProperties = System.getProperty("integration.test.newspaper.properties");
         Properties props = new Properties();
-        try {
-            props.load(new FileReader(new File(System.getProperty("integration.test.newspaper.properties"))));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+
+        props.load(new FileInputStream(pathToProperties));
         summaLocation = props.getProperty(ConfigConstants.AUTONOMOUS_SBOI_URL);
 
     }
