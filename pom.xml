@@ -14,10 +14,10 @@
     <version>1.0-SNAPSHOT</version>
 
 
-    <scm><!--TODO-->
-        <url>https://github.com/statsbiblioteket/newspaper-manualQA-flagger</url>
-        <connection>scm:git:https://github.com/statsbiblioteket/newspaper-manualQA-flagger.git</connection>
-        <developerConnection>scm:git:git@github.com:statsbiblioteket/newspaper-title-records-maintainer.git
+    <scm>
+        <url>https://github.com/statsbiblioteket/newspaper-titleRecord-maintainer</url>
+        <connection>scm:git:https://github.com/statsbiblioteket/newspaper-titleRecord-maintainer.git</connection>
+        <developerConnection>scm:git:git@github.com:statsbiblioteket/newspaper-titleRecord-maintainer.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>
