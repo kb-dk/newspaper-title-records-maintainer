@@ -21,6 +21,10 @@ import java.util.Properties;
  */
 public class RunnableTitleRecordRelationsMaintainer extends AbstractRunnableComponent {
     private static final String URI_PREFIX = "info:fedora/";
+    protected static final String SET_INACTIVE_COMMENT
+            = "Title Record Maintainer sets this object inactive to update relations";
+    protected static final String SETS_ACTIVE_COMMENT
+            = "Title Record Maintainer sets this object active after updating relations";
     private final EnhancedFedora eFedora;
     private static final String EDITION_TO_NEWSPAPER_RELATION
             = "http://doms.statsbiblioteket.dk/relations/default/0/1/#isPartOfNewspaper";
@@ -151,13 +155,15 @@ public class RunnableTitleRecordRelationsMaintainer extends AbstractRunnableComp
                     URI_PREFIX + newspaperDomsID, false, "linking to");
         } catch (BackendInvalidCredsException objectIsPublished) {
             // Edition was already published, so unpublish (set to "I" (inactive)) before adding
-            eFedora.modifyObjectState(edition.getDomsID(), "I", "comment");
+            eFedora.modifyObjectState(edition.getDomsID(), "I", SET_INACTIVE_COMMENT);
             try {
                 eFedora.addRelation(edition.getDomsID(), URI_PREFIX + edition.getDomsID(), EDITION_TO_NEWSPAPER_RELATION,
-                        URI_PREFIX + newspaperDomsID, false, "linking to");
+                        URI_PREFIX + newspaperDomsID, false,
+                                           "Adding relation " + EDITION_TO_NEWSPAPER_RELATION + " to " +
+                                           URI_PREFIX + newspaperDomsID);
             } finally {
                 // Re-publish (set to "A" (active))
-                eFedora.modifyObjectState(edition.getDomsID(), "A", "comment");
+                eFedora.modifyObjectState(edition.getDomsID(), "A", SETS_ACTIVE_COMMENT);
             }
         }
     }
@@ -180,16 +186,19 @@ public class RunnableTitleRecordRelationsMaintainer extends AbstractRunnableComp
             if (relation.getObject().equals(URI_PREFIX + newspaperDomsID)) {
                 try {
                     eFedora.deleteRelation(edition.getDomsID(), URI_PREFIX + edition.getDomsID(),
-                            EDITION_TO_NEWSPAPER_RELATION, URI_PREFIX + newspaperDomsID, false, "linking to");
+                            EDITION_TO_NEWSPAPER_RELATION, URI_PREFIX + newspaperDomsID, false,
+                                                  "Deleting relation " + EDITION_TO_NEWSPAPER_RELATION + " to " +
+                                                  URI_PREFIX + newspaperDomsID);
                 } catch (BackendInvalidCredsException objectIsPublished) {
                     // Edition was already published, so unpublish (set to "I" (inactive)) before deleting
-                    eFedora.modifyObjectState(edition.getDomsID(), "I", "comment");
+                    eFedora.modifyObjectState(edition.getDomsID(), "I", SET_INACTIVE_COMMENT);
                     try {
                         eFedora.deleteRelation(edition.getDomsID(), URI_PREFIX + edition.getDomsID(),
-                                EDITION_TO_NEWSPAPER_RELATION, URI_PREFIX + newspaperDomsID, false, "linking to");
+                                EDITION_TO_NEWSPAPER_RELATION, URI_PREFIX + newspaperDomsID, false, "Deleting relation "+EDITION_TO_NEWSPAPER_RELATION+" to " +
+                                                      URI_PREFIX + newspaperDomsID);
                     } finally {
                         // Re-publish (set to "A" (active))
-                        eFedora.modifyObjectState(edition.getDomsID(), "A", "comment");
+                        eFedora.modifyObjectState(edition.getDomsID(), "A", SETS_ACTIVE_COMMENT);
                     }
                 }
             }
