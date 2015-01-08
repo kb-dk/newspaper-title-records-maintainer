@@ -9,6 +9,8 @@ import dk.statsbiblioteket.medieplatform.autonomous.*;
 import dk.statsbiblioteket.util.xml.DOM;
 import dk.statsbiblioteket.util.xml.XPathSelector;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.Properties;
  * any that might be needed.
  */
 public class RunnableTitleRecordRelationsMaintainer extends AbstractRunnableComponent {
+    private static final Logger log = LoggerFactory.getLogger(RunnableTitleRecordRelationsMaintainer.class);
     private static final String URI_PREFIX = "info:fedora/";
     protected static final String SET_INACTIVE_COMMENT
             = "Title Record Maintainer sets this object inactive to update relations";
@@ -78,6 +81,7 @@ public class RunnableTitleRecordRelationsMaintainer extends AbstractRunnableComp
         for (Item toRemove : editionsToRemove) {
             removeRelationFromEditionToNewspaper(toRemove, domsID);
         }
+        log.info("All work on {} done",item.getFullID());
     }
 
     /**
