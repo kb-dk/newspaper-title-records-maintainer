@@ -27,6 +27,7 @@ public class RunnableTitleRecordRelationsMaintainerTest {
     private static final String DOMS_EDITION_ID2 = "uuid:781732b1-ca9a-46d4-94cd-ae1c0b7f1ebf";
     private static final String DOMS_EDITION_ID3 = "uuid:aff7e1f0-4242-4fc1-877d-6382f2bbaaa9";
     private static final String MESSAGE = "linking to";
+    private static final String DELETE_MESSAGE = "Deleting relation " + PREDICATE + " to " + URI_PREFIX + DOMS_NEWSPAPER_TITLE_ID;
     private static final String NEWSPAPERID = "avis";
     private static final String START_DATE = "1970-01-01T01:00:00.000+01:00";
     private static final String END_DATE = "1980-01-01T01:00:00.000+01:00";
@@ -97,7 +98,7 @@ public class RunnableTitleRecordRelationsMaintainerTest {
         verify(enhancedFedoraMock).getNamedRelations(DOMS_EDITION_ID3, PREDICATE, null);
         verify(enhancedFedoraMock).deleteRelation(DOMS_EDITION_ID3, URI_PREFIX + DOMS_EDITION_ID3, PREDICATE, URI_PREFIX
                 + DOMS_NEWSPAPER_TITLE_ID,
-                                                  false, MESSAGE);
+                                                  false, DELETE_MESSAGE);
 
         //Verify normal calls
         verifyNormalCalls(resultCollectorMock, enhancedFedoraMock, newspaperIndexMock);
@@ -189,10 +190,10 @@ public class RunnableTitleRecordRelationsMaintainerTest {
         verify(enhancedFedoraMock).getNamedRelations(DOMS_EDITION_ID2, PREDICATE, null);
         verify(enhancedFedoraMock).deleteRelation(DOMS_EDITION_ID2, URI_PREFIX + DOMS_EDITION_ID2, PREDICATE, URI_PREFIX
                 + DOMS_NEWSPAPER_TITLE_ID,
-                                                  false, MESSAGE);
+                                                  false, DELETE_MESSAGE);
         verify(enhancedFedoraMock).getNamedRelations(DOMS_EDITION_ID3, PREDICATE, null);
         verify(enhancedFedoraMock).deleteRelation(DOMS_EDITION_ID3, URI_PREFIX + DOMS_EDITION_ID3, PREDICATE,
-                                                  URI_PREFIX + DOMS_NEWSPAPER_TITLE_ID, false, MESSAGE);
+                                                  URI_PREFIX + DOMS_NEWSPAPER_TITLE_ID, false, DELETE_MESSAGE);
 
         //Verify normal calls
         verifyNormalCalls(resultCollectorMock, enhancedFedoraMock, newspaperIndexMock);
@@ -227,10 +228,10 @@ public class RunnableTitleRecordRelationsMaintainerTest {
         //Two relations should be checked, then deleted
         verify(enhancedFedoraMock).getNamedRelations(DOMS_EDITION_ID2, PREDICATE, null);
         verify(enhancedFedoraMock).deleteRelation(DOMS_EDITION_ID2, URI_PREFIX + DOMS_EDITION_ID2, PREDICATE,
-                                                  URI_PREFIX + DOMS_NEWSPAPER_TITLE_ID, false, MESSAGE);
+                                                  URI_PREFIX + DOMS_NEWSPAPER_TITLE_ID, false, DELETE_MESSAGE);
         verify(enhancedFedoraMock).getNamedRelations(DOMS_EDITION_ID3, PREDICATE, null);
         verify(enhancedFedoraMock).deleteRelation(DOMS_EDITION_ID3, URI_PREFIX + DOMS_EDITION_ID3, PREDICATE,
-                                                  URI_PREFIX + DOMS_NEWSPAPER_TITLE_ID, false, MESSAGE);
+                                                  URI_PREFIX + DOMS_NEWSPAPER_TITLE_ID, false, DELETE_MESSAGE);
 
         //Verify normal calls
         verifyNormalCalls(resultCollectorMock, enhancedFedoraMock, newspaperIndexMock);
