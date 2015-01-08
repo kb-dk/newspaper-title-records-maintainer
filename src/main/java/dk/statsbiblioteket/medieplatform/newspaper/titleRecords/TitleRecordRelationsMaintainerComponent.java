@@ -41,7 +41,7 @@ public class TitleRecordRelationsMaintainerComponent {
                 fedoraLocation,
                 properties.getProperty(ConfigConstants.DOMS_PIDGENERATOR_URL),
                 null,
-                fedoraRetries, fedoraRetries, fedoraRetries, fedoraDelayBetweenRetries);
+                fedoraRetries, fedoraDelayBetweenRetries);
         DomsItemFactory itemFactory = new DomsItemFactory();
 
         String summaLocation = properties.getProperty(ConfigConstants.AUTONOMOUS_SBOI_URL);
