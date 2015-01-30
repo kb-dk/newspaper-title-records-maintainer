@@ -24,14 +24,9 @@
         <!-- repeat <to> to add additional recipients  -->
         <from>{email.titleRecords.sender.address}</from>
         <subject>Newspaper Title Record Maintainer failed: %logger{20} - %m</subject>
-        <evaluator class="ch.qos.logback.classic.boolex.GEventEvaluator">
-            <expression>
-                true
-            </expression>
-        </evaluator>
-        <encoder>
+        <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>%date{ISO8601} [%thread] %-5level %logger{36} - %msg%n</pattern>
-        </encoder>
+        </layout>
     </appender>
 
 
