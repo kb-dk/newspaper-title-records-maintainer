@@ -1,7 +1,7 @@
 package dk.statsbiblioteket.medieplatform.newspaper.titleRecords;
 
 import dk.statsbiblioteket.doms.central.connectors.EnhancedFedoraImpl;
-import dk.statsbiblioteket.doms.webservices.authentication.Credentials;
+import dk.statsbiblioteket.sbutil.webservices.authentication.Credentials;
 import dk.statsbiblioteket.medieplatform.autonomous.*;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.slf4j.Logger;
