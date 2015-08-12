@@ -1,6 +1,3 @@
-1.4
- * Renamed from newspaper-title-records-maintainer to newspaper-titleRecord-maintainer
-
 1.3
  * Use newest version of batch event framework, to avoid SparQL queries to DOMS
 
