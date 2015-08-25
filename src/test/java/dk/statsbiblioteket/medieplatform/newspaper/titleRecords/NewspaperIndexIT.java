@@ -1,5 +1,6 @@
 package dk.statsbiblioteket.medieplatform.newspaper.titleRecords;
 
+import org.junit.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -12,6 +13,8 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.testng.Assert.assertTrue;
 
 public class NewspaperIndexIT {
@@ -36,4 +39,41 @@ public class NewspaperIndexIT {
         List<Item> newspapers = newspaperIndex.getEditions("berlingsketidende", "1749-01-03", "1762-01-01");
         assertTrue(newspapers.size() > 1);
     }
+
+    @Test(groups = "externalTest")
+    public void testGetNewspapersNoEndDate() throws Exception {
+        NewspaperIndex newspaperIndex = new NewspaperIndex(new SolrJConnector(summaLocation).getSolrServer(),
+                new DomsItemFactory());
+        List<Item> newspapers = newspaperIndex.getEditions("berlingsketidende", "1749-01-03", "");
+        assertTrue(newspapers.size() > 1);
+    }
+
+    @Test(groups = "externalTest")
+    public void testGetNewspapersNoStartDate() throws Exception {
+        NewspaperIndex newspaperIndex = new NewspaperIndex(new SolrJConnector(summaLocation).getSolrServer(),
+                new DomsItemFactory());
+        List<Item> newspapers = newspaperIndex.getEditions("berlingsketidende", "", "1749-01-03");
+        assertTrue(newspapers.size() > 1);
+    }
+
+    @Test(groups = "externalTest")
+    public void testGetNewspapersNoDates() throws Exception {
+        NewspaperIndex newspaperIndex = new NewspaperIndex(new SolrJConnector(summaLocation).getSolrServer(),
+                new DomsItemFactory());
+        List<Item> newspapers = newspaperIndex.getEditions("berlingsketidende", "", "");
+        assertTrue(newspapers.size() > 1);
+    }
+
+    @Test(groups = "externalTest")
+    public void testGetNewspapersWildcardEquivalent() throws Exception {
+        NewspaperIndex newspaperIndex = new NewspaperIndex(new SolrJConnector(summaLocation).getSolrServer(),
+                new DomsItemFactory());
+        List<Item> newspapersWildcard = newspaperIndex.getEditions("berlingsketidende", "1749-01-03", "");
+
+        List<Item> newspapersFuture = newspaperIndex.getEditions("berlingsketidende", "1749-01-03", "2515-01-01");
+        Assert.assertThat(newspapersWildcard, is(equalTo(newspapersFuture)));
+    }
+
+
+
 }

@@ -44,7 +44,9 @@ public class NewspaperIndex {
 
         try {
             SolrQuery query = new SolrQuery();
-            query.setQuery(constructQueryString(avisID, startDate, endDate));
+            query.setQuery(constructQueryString(avisID,
+                    startDate.trim().isEmpty() ? "*":startDate,
+                    endDate.trim().isEmpty() ? "*":endDate));
 
             // Fetch size. Ok that it's above 1000, because we've specified fields to fetch and content_text is not one of them
             query.setRows(rows);
