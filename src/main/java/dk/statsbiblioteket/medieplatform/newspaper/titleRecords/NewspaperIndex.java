@@ -44,9 +44,7 @@ public class NewspaperIndex {
 
         try {
             SolrQuery query = new SolrQuery();
-            query.setQuery(constructQueryString(avisID,
-                    startDate.trim().isEmpty() ? "*":startDate,
-                    endDate.trim().isEmpty() ? "*":endDate));
+            query.setQuery(constructQueryString(avisID, startDate, endDate));
 
             // Fetch size. Ok that it's above 1000, because we've specified fields to fetch and content_text is not one of them
             query.setRows(rows);
@@ -76,13 +74,17 @@ public class NewspaperIndex {
      * Construct query string for Solr searching
      *
      * @param avisID The newspaper ID, for example "adresseavisen1759", identifying the newspaper object to be matched
-     * @param startDate The start of the date range to be matched
-     * @param endDate The end of the date range to be matched
+     * @param startDate The start of the date range to be matched. Use the empty string for any date. Must not be null.
+     * @param endDate The end of the date range to be matched. Use the empty string for any date. Must not be null.
      * @return The query string
      */
     private String constructQueryString(String avisID, String startDate, String endDate) {
-        return FIELD_NAME_EDITION_AVIS_ID + ":" + avisID + " AND " + FIELD_NAME_EDITION_DATE_ISSUED + ":" + "["
-                + startDate + " TO " + endDate + "]" + " AND " + FIELD_NAME_ITEM_MODEL + ":" + "\"" + CONTENT_MODEL_NEWSPAPER
-                + "\"";
+        return FIELD_NAME_EDITION_AVIS_ID + ":" + avisID
+                + " AND "
+                + FIELD_NAME_EDITION_DATE_ISSUED + ":" + "["
+                + (startDate.trim().isEmpty() ? "*": startDate) + " TO "
+                + (endDate.trim().isEmpty() ? "*":endDate) + "]"
+                + " AND "
+                + FIELD_NAME_ITEM_MODEL + ":" + "\"" + CONTENT_MODEL_NEWSPAPER + "\"";
     }
 }

@@ -1,6 +1,5 @@
 package dk.statsbiblioteket.medieplatform.newspaper.titleRecords;
 
-import org.junit.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -15,6 +14,7 @@ import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertTrue;
 
 public class NewspaperIndexIT {
@@ -71,7 +71,7 @@ public class NewspaperIndexIT {
         List<Item> newspapersWildcard = newspaperIndex.getEditions("berlingsketidende", "1749-01-03", "");
 
         List<Item> newspapersFuture = newspaperIndex.getEditions("berlingsketidende", "1749-01-03", "2515-01-01");
-        Assert.assertThat(newspapersWildcard, is(equalTo(newspapersFuture)));
+        assertThat(newspapersWildcard, is(equalTo(newspapersFuture)));
     }
 
 
