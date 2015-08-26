@@ -1,3 +1,6 @@
+1.5
+* Fix bug, where current newspaper titles do not match any editions.
+
 1.4
 * Update to newest version of newspaper event framework to be able to handle Items without Events datastreams
 * Update to version 1.5 of parent pom
