@@ -52,7 +52,7 @@ public class NewspaperIndexIT {
     public void testGetNewspapersNoStartDate() throws Exception {
         NewspaperIndex newspaperIndex = new NewspaperIndex(new SolrJConnector(summaLocation).getSolrServer(),
                 new DomsItemFactory());
-        List<Item> newspapers = newspaperIndex.getEditions("berlingsketidende", "", "1749-01-03");
+        List<Item> newspapers = newspaperIndex.getEditions("berlingsketidende", "", "1762-01-01");
         assertTrue(newspapers.size() > 1);
     }
 
