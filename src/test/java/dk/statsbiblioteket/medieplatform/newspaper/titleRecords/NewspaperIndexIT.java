@@ -12,8 +12,7 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.collection.IsIterableContainingInAnyOrder.containsInAnyOrder;
 import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertTrue;
 
@@ -69,9 +68,8 @@ public class NewspaperIndexIT {
         NewspaperIndex newspaperIndex = new NewspaperIndex(new SolrJConnector(summaLocation).getSolrServer(),
                 new DomsItemFactory());
         List<Item> newspapersWildcard = newspaperIndex.getEditions("berlingsketidende", "1749-01-03", "");
-
         List<Item> newspapersFuture = newspaperIndex.getEditions("berlingsketidende", "1749-01-03", "2515-01-01");
-        assertThat(newspapersWildcard, is(equalTo(newspapersFuture)));
+        assertThat(newspapersWildcard, containsInAnyOrder(newspapersFuture.toArray()));
     }
 
 
